@@ -1,0 +1,127 @@
+Is used to restrict certain users in which Actionresults they can see . 
+example : a customer should not be able to access to add a customer to the database . only admins should.
+
+Authorization  - decides if you have permission to access a resource 
+Authentication  - verifies you are who you say you are 
+
+Changing Authentication at the start of making a new project : 
+____________________________________________________________________
+No authentication - no authentication 
+
+Individual Authentication (default for mvc applications) -  form for users , website , can use social logins  ( most comon) 
+
+Organization accounts - single sign on , cloud apps 
+
+windows authentication - using windows to automatically sign up 
+___________________________________________________________________________________________________-
+ASP.NET Identity 
+__________________
+Filters _
+__________
+how to add filters  to a Actionresult : you put it above the actionresult [Authorise] 
+It will be restricted and redirected to the login page 
++
+To make it restricted to all the actionresults in the controller you put it at the top of the controller 
+if you want all to be restricted then you set it globally in filterConfig  . then if you want a controller 
+that can be accessble to anyone you add [AllowAnonymous]
+
+For it to be applied to All Controllers : filters.Add(new AuthorizeAttribute()); 
+
+The most specific filter will be used ( example if nothing is set for a ActionMethod then it will go the one set for the entire controller if nothing is set for that then it 
+will use the global one . 
+
+How to add a new role : 
+____________________________
+You go the the register controller and inside the actionmethod you add these lines : 
+
+var roleStore = new RoleStore<IdentityRole>(new ApplicationDbContext); 
+var roleManager = new RoleManager<IdentityRole>(roleStore); 
+await roleManager.CreateAsync(new IdentityRole("CanManageCars"));
+await UserManager.AddToRoleAsync( user.Id , "CanManageCars");
+
+// Then you load the application and add a new user and then remove the code or 
+all the users that sign up will have the same role permissions  . 
+
+Now you want the permissions to be loaded with the database so you use a migration to put it in there :
+you add the verbatem string first : 
+___________________________________
+Sql(@""); and put the content inside of that 
+_________
+you copy the script of the Users , Roles & UserRoles and paste it in a migration , then you 
+delete the Users and Roles then run the migration  
+_________________________________________________________
+
+93 Working with Roles :
+_________________________
+you cant be using the same view(listofcars) to show to the user because it has all the functions that a user
+is not supposed to be incharge of so you create another view like that one and remove all the functions that is not supposed to be there  . A read only view . 
+ 
+In the list view you check if the person has the permission to access which of the views by doing this :
+
+if(User.IsInRole("CanManageCars")) {
+                                                              return View("//The View that has all the shit");
+                                                              }
+return View("//The view that has shit hidden");
+
+But the people that dont have access can still access the other ActionMethods using the URL
+but we can stop this by adding Authorization above the ActionResult like this : 
+
+[Authorize(Roles = "CanManageCars")]
+
+But this is a magic string ( a shit that is vulnerable to change because you have to change it in so 
+many places it is prone to error at one point ) 
+
+so you create a static class and make a constant in it like this : 
+public static class RoleClass {...
+public const string CanManageCars  = "CanManageCars" ; 
+
+Then you call the class like this : 
+[Authorize(Roles = RoleClass.CanManageCars )]
+
+Adding profile data to shi 
+____________________________
+You go the Identity model and add the property . 
+Then you go to the View (Register) and then make the view for it . but you have to add the property in the
+viewmodel otherwise it wont be accessible in the view . 
+
+Then you go in the controller of the Account and you add this example : 
+DrivingLicense  = model.DrivingLicense 
+and then its done . 
+_____________________
+How to login using Social logins in mvc : 
+_____________________________________________________________________________________________________________
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

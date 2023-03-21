@@ -1,0 +1,139 @@
+ How to add copy , pdf and other downloadable shit in mvc : 
+
+
+
+Below code goes layout file in the head
+
+<link href="~/Content/fontawesome-all.min.css" rel="stylesheet" />  
+    <link href="~/Content/DataTables/css/dataTables.bootstrap4.min.css" rel="stylesheet" />  
+    <link href="~/Content/DataTables/css/buttons.bootstrap4.min.css" rel="stylesheet" />  
+
+Below code goes by the script files before the last one in the layout file 
+
+
+    @Scripts.Render("~/bundles/jquery")  
+    @Scripts.Render("~/bundles/bootstrap")  
+    <script src="~/Scripts/jquery-3.5.1.min.js"></script>  
+    <script src="~/Scripts/DataTables/jquery.dataTables.min.js"></script>  
+    <script src="~/Scripts/DataTables/dataTables.bootstrap4.min.js"></script>  
+    <script src="https://cdn.datatables.net/buttons/1.6.2/js/dataTables.buttons.min.js"></script>  
+    <script src="https://cdn.datatables.net/buttons/1.6.2/js/buttons.bootstrap4.min.js"></script>  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>  
+    <script src="https://cdn.datatables.net/buttons/1.6.2/js/buttons.html5.min.js"></script>  
+    <script src="https://cdn.datatables.net/buttons/1.6.2/js/buttons.print.min.js"></script>  
+    <script src="https://cdn.datatables.net/buttons/1.6.2/js/buttons.colVis.min.js"></script>  
+
+Then the other thing is to add the buttons in the view 
+
+"dom": 'Bfrtip',
+                "buttons": [
+                    {
+                        extend: 'copy',
+                        className: 'btn btn-dark rounded-0',
+                        text: '<i class="far fa-copy"></i> Copy'
+                    },
+                    {
+                        extend: 'excel',
+                        className: 'btn btn-dark rounded-0',
+                        text: '<i class="far fa-file-excel"></i> Excel'
+                    },
+                    {
+                        extend: 'pdf',
+                        className: 'btn btn-dark rounded-0',
+                        text: '<i class="far fa-file-pdf"></i> Pdf'
+                    },
+                    {
+                        extend: 'csv',
+                        className: 'btn btn-dark rounded-0',
+                        text: '<i class="fas fa-file-csv"></i> CSV'
+                    },
+                    {
+                        extend: 'print',
+                        className: 'btn btn-dark rounded-0',
+                        text: '<i class="fas fa-print"></i> Print'
+                    }
+                ]
+
+
+____________________________________________________________________________
+This is the full code for the view with the api and the delete button : 
+
+
+@section scripts {
+    <script>
+        $(document).ready(function () {
+            var table = $("#tableApplications").DataTable({
+                ajax: {
+                    url: "/api/Jobs",
+                    dataSrc: ""
+                },
+                columns: [
+                    {
+                        data: "personName",
+                        render: function (data, type, JobForm) {
+                            return "<a href='/Job/EditForm/" + JobForm.id + "'>" + data + "</a>";
+                        }
+                    },
+                    {
+                        data: "position.position"
+                    },
+                    {
+                        data: "id",
+                        render: function (data, type, JobForm) {
+                            return "<button class='btn-link js-btn' data-getid =" + JobForm.id + ">delete</button>";
+                        }
+                    }
+                 ] ,
+                "dom": 'Bfrtip',
+                "buttons": [
+                    {
+                        extend: 'copy',
+                        className: 'btn btn-dark rounded-0',
+                        text: '<i class="far fa-copy"></i> Copy'
+                    },
+                    {
+                        extend: 'excel',
+                        className: 'btn btn-dark rounded-0',
+                        text: '<i class="far fa-file-excel"></i> Excel'
+                    },
+                    {
+                        extend: 'pdf',
+                        className: 'btn btn-dark rounded-0',
+                        text: '<i class="far fa-file-pdf"></i> Pdf'
+                    },
+                    {
+                        extend: 'csv',
+                        className: 'btn btn-dark rounded-0',
+                        text: '<i class="fas fa-file-csv"></i> CSV'
+                    },
+                    {
+                        extend: 'print',
+                        className: 'btn btn-dark rounded-0',
+                        text: '<i class="fas fa-print"></i> Print'
+                    }
+                ]
+            });
+
+            $("#tableApplications").on("click", ".js-btn", function () {
+                var button = $(this);
+                bootbox.confirm("Do you really want to delete this ?", function (result) {
+                    if (result) {
+                            $.ajax({
+                                url: "/api/Jobs/" + button.attr("data-getid"),
+                                method: "DELETE",
+                                success: function () {
+                                    table.row(button.parents("tr")).remove().draw();
+                                      }
+                            });
+                      }
+                });
+                
+               
+            });
+        });
+    </script>
+    }
+
+

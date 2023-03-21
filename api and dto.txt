@@ -1,0 +1,70 @@
+DTOs :  Data transfer object 
+______
+DTO is used to transfer data to the client and server and vice versa . 
+Plain data structure  . 
+by creating dto , less chance of api breaking . changin dto is hard. 
+
+api should never recieve domain objects . it will open security holes . 
+
+steps : 
+create a folder named dtos . 
+copy all the fields from the domain model you are making a dto for . 
+remove the display attributes and the nav prop(if any ) because it causes dependency issues or create a dto for that domain model also 
+
+__________________________________________________________________________________________________________
+Installing automapper : 
+package manager : install-package automapper -version:4.1 (you state the version you want to download in the project ) 
+
+How to use automapper : 
+________________________
+
+create a new class in app_start and name it (eg: mappingProfile)
+derive it from Profile (automapper namespace) using AutoMapper; 
+constructor then map the things inside .  
+
+automapper is a convention based mapping tool - uses names to map
+public mappingProfile() //constructor 
+{
+Mapper.CreateMap<Customer,CustomerDto>(); 
+Mapper.CreateMap<CustomerDto,Customer>(); 
+ }
+
+Then you go global.asax and initialize the mapper profile  
+input the namespaces or it will not work . 
+Mapper.Initialize(c => c.AddProfile<mappingProfile>()); 
+
+For using camel notation : 
+_________________________
+
+Go to webAPIconfig : 
+
+namespace : Newtonsoft.Json ; Newtonsoft.Json.Serialization; 
+add the lines of code .
+var settings = config.Formatters.JsonFormatter.SerializerSettings; 
+settings.ContractResolver = new CamelCasePropertyNamesContractResolver(); 
+settings.Formatting = Formatting.Indented; 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 

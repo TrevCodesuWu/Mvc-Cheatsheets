@@ -1,0 +1,1 @@
+same name as in the dto class in the main class and add the eager loading shit in the api thing . 

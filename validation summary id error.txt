@@ -1,0 +1,19 @@
+when adding validation you get a error that id is needed in validation summary : 
+to avoid this we add a new thing in the controller like this eg: 
+customer = new customer()
+
+this will force a value for the customer
+
+then you add @Html.HiddenFor(c => c.customer.id); 
+
+but this will create default values for the form like 0 for integers/doubles and 
+default dates like 1 jan 2000 . 
+
+so we take out the new thing from the controller and add the hidden helper method 
+instead of the hiddenfor :  eg :
+
+@Html.Hidden("customer.id",( Model.customer != null) ? Model.customer.id : 0 )
+
+This will remove the default values or you can use another method because this above method 
+has a magic string which is needed to be manually changed if the value is changed : 
+you use a pure view model to do this . section 5 validation -code review video 

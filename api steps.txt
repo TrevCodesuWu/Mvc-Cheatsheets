@@ -1,0 +1,39 @@
+step one : create the controller 
+_________________________________
+ - add the global configuration in application start (namespace http and routing )
+     
+
+step two : testing the api using POSTMAN 
+_____________________________________________
+
+step three : Creating the DTO using the model of the domain model 
+_________________________________________________________________________
+        - create DTO folder then add the class (eg. CustomerDTO)
+ - take out the required attributes and dependencies (navigation properties) 
+
+step 4 : Using Automapper 
+_____________________________
+- download automapper using package manager 
+       - install-package automapper -version:1.4
+ - Create a class in app_start and make your mapping profile 
+     - inherit it from Profile 
+          - Make a constructor and create the map 
+              - add all the namespaces : automapper ,& all the other folders needed 
+
+             Mapper.CreateMap<Customer,CustomerDTO>(); 
+            Mapper.CreateMap<CustomerDTO,Customer>(); 
+-add this new profile to the application start method in globalasax :
+        -add automapper namespace to application start method 
+       Mapper.Initialize( c => c.AddProfile<mappingProfile>() ); 
+           -use the automapper in the api 
+
+step five : Using camelNotation : 
+___________________________________
+      - add these lines to webApiConfig : 
+     namespaces to add :  Newtonsoft.Json & Newtonsoft.Json.Serialization
+
+           var settings = config.Formatters.JsonFormatter.SerializerSettings; 
+                settings.ContractResolver = new CamelCasePropertyNamesContractResolver(); 
+                settings.Formatting = Formatting.Indented; 
+
+

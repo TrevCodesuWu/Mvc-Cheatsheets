@@ -1,0 +1,22 @@
+http - stateless -means it doesnt remember the last thing you did if you come back tomorrow . 
+session - mostly stored on the server side 
+cookies - on the client side . 
+
+the browsers are the client and the web applications are the server 
+
+when you visit a website you give a cookie to it and it finds the session to match 
+and it returns the information 
+
+Http becomes stateful when used with cookies and sessions . .
+Http uses TCP
+
+API
+2 types of apis . SOAP and REST 
+
+REST api  uses http protocols to communicate with the client and server to retrieve and give information/ data . 
+
+HTTP request methods : 
+Get 
+Post 
+Put 
+Delete 
