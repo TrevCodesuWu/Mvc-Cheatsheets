@@ -1,0 +1,5 @@
+Difference between the full version of Jquery and a min version of Jquery : 
+
+The full version is because we can edit it and we use it in development if we want to change anything 
+
+The min version of it is used in production because it cannot be changed and it is smaller compared to the whole thing . 

@@ -1,0 +1,24 @@
+How to use Sweet Alert : 
+________________________
+
+first you add the necessary cdn links ( the jquery and the sweet alert link )
+
+<script src="~/Scripts/jquery-3.4.1.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+Add this to the view page :
+___________________________
+<script>
+    $(document).ready(function () {
+        $("#purchasebtn").click(function () {
+           Swal.fire(
+                'Good job!',
+                'You clicked the button!',
+                'success'
+            )
+        });
+    });
+</script>
+// The above is just one template , if you want more different ones visit this URL :
+ 
+https://sweetalert2.github.io/
