@@ -1,4 +1,4 @@
-Is used to restrict certain users in which Actionresults they can see . 
+DIs used to restrict certain users in which Actionresults they can see . 
 example : a customer should not be able to access to add a customer to the database . only admins should.
 
 Authorization  - decides if you have permission to access a resource 
@@ -34,7 +34,7 @@ How to add a new role :
 ____________________________
 You go the the register controller and inside the actionmethod you add these lines : 
 
-var roleStore = new RoleStore<IdentityRole>(new ApplicationDbContext); 
+var roleStore = new RoleStore<IdentityRole>(new ApplicationDbContext()); 
 var roleManager = new RoleManager<IdentityRole>(roleStore); 
 await roleManager.CreateAsync(new IdentityRole("CanManageCars"));
 await UserManager.AddToRoleAsync( user.Id , "CanManageCars");
