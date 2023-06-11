@@ -1,0 +1,18 @@
+How to use microsoft teams : 
+___________________________
+login account - external users/ personal accounts cannot join meetings with organisational users .
+They have to join the meeting as a guest user . 
+
+The 2 accounts I have
+21955942@dut4life.ac.za  - Organisation
+trevlinnaicker22@gmail.com  - Personal
+
+Sharing screen : 
+Screen : Everything will be shown .
+Window : Only a specific window . 
+
+To create a Meeting : 
+Go to calender and click start a meeting . 
+
+Teams is for personal accounts 
+Microsoft Teams is for school/work accounts 

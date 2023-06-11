@@ -1,0 +1,10 @@
+#1 User places order - order processed
+#2 admin assigns driver for order 
+#3 Driver accepts order - ordershipped
+#4 Driver presses ship order 
+Driver presses Confirm Delivery 
+bugs tf out :(
+
+shortcuts : can only create one driver 
+dont have to add admin option to create driver 
+add tracking number in paramter in an actionmethod and create views based on tracking progress and show images of progress
